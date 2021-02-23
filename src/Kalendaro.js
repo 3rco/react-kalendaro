@@ -6,7 +6,8 @@ export default class Kalendaro extends Component {
 
     state = {
         currentMonth: new Date(),
-        selectedDate: new Date()
+        selectedDate: new Date(),
+        clickedDate: ''
     };
 
     renderHeader() {
@@ -70,13 +71,14 @@ export default class Kalendaro extends Component {
                       : moment(day).isSame(selectedDate, day) ? "selected" : ""
                   }`}
                   key={day}
-                  onClick={() => this.onDateClick(alert(day))}
+                  onClick={() => this.onDateClick(moment(cloneDay).format('MMMM Do YYYY'))}
                 >
                   <span className="number">{formattedDate}</span>
                   <span className="bg">{formattedDate}</span>
                 </div>
               );
               day = moment(day).add(1, 'days');
+              
             }
             rows.push(
               <div className="row" key={day}>
@@ -88,7 +90,12 @@ export default class Kalendaro extends Component {
           return <div className="body">{rows}</div>;
     }
 
-    onDateClick = day => { }
+    onDateClick = day => { 
+        this.setState({
+            selectedDate: day
+          });
+          console.log(this.state.selectedDate);
+    }
     nextMonth = () => { 
         this.setState({
             currentMonth: moment(this.state.currentMonth).add(1, 'months')
