@@ -1,1 +1,1 @@
-An interactive calendar app
+*An interactive calendar app
